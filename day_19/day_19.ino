@@ -157,7 +157,12 @@ void loop() {
     }
 
     // Display our current depth on our digital depth gauge
-    depth_gauge.showNumberDec(current_depth);
+    if(current_depth < SURFACE_DEPTH) {
+        depth_gauge.showNumberDec(current_depth);
+    }
+    else {
+        depth_gauge.showNumberDec(0);
+    }
 
     // Since BasicEncoder can be clicked multiple times per loop via interrupts we
     // track when counter has passed milestones THIS time through the loop.  We do
@@ -187,6 +192,7 @@ void loop() {
         depth_gauge.setSegments(done);  // Display "dOnE"
         delay(300);
       }
+      current_depth = 0;
     }
     previous_depth = current_depth;  // save current depth for next time through the loop
   }
