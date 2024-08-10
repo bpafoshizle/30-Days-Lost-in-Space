@@ -1,5 +1,5 @@
 {
-    "port": "/dev/tty.usbserial-146130",
+    "port": "/dev/tty.usbserial-146140",
     "board": "arduino:avr:uno",
-    "sketch": "day_19/day_19.ino"
+    "sketch": "day_20/day_20.ino"
 }

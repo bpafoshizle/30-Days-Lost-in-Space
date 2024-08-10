@@ -1,0 +1,66 @@
+/*
+ * 30 Days - Lost in Space
+ * Day 20 - Creative Day. RGB Adjuster
+ *
+ * Learn more at https://learn.inventr.io/adventure
+ *
+ */
+
+/*
+ * Arduino concepts introduced/documented in this lesson.
+ * - integer percentages without using floating point
+ *
+ * Parts and electronics concepts introduced in this lesson.
+ * - 
+ */
+
+// Explicitly include Arduino.h
+#include "Arduino.h"
+
+// Include Keypad library
+#include <Keypad.h>
+
+// Our HERO keypad has 3 rows, with 1 column.
+const byte ROWS = 3;
+const byte COLS = 1;
+
+// Define what characters will be returned by each button
+// Define what characters will be returned by each button
+const char BUTTONS[ROWS][COLS] = {
+  { 'R' },
+  { 'G' },
+  { 'B' }
+};
+
+
+// Define row and column pins connected to the keypad
+const byte ROW_PINS[ROWS] = {7, 6, 5 };
+const byte COL_PINS[COLS] = { 13 };
+
+// Create our keypad object from the keypad configuration above
+Keypad keypad = Keypad( makeKeymap(BUTTONS), ROW_PINS, COL_PINS, ROWS, COLS );
+
+char current_rgb_switch = 'R';
+
+void setup() {
+  keypad.addEventListener(keypadEvent); // Add an event listener for this keypad
+
+  // Setup Serial Monitor
+  Serial.begin(9600);
+}
+
+const unsigned int LOOP_DELAY = 200;  // Delay in ms between loop() executions.
+
+void loop() {
+    delay(LOOP_DELAY);
+    char key = keypad.getKey();
+    Serial.print("Keypad pressed: ");
+    Serial.println(current_rgb_switch);
+}
+
+// Taking care of some special events.
+void keypadEvent(KeypadEvent key){
+    Serial.print("Keypad state: ");
+    Serial.println(keypad.getState());
+    current_rgb_switch = key;
+}
